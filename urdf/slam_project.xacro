@@ -179,7 +179,7 @@
   </joint>
 
 
-  <link name='camera'>
+  <link name='camera_link'>
 
     <inertial>
       <mass value=".1"/>
@@ -191,14 +191,14 @@
       />
     </inertial>
 
-    <collision name='camera_collision'>
+    <collision name='camera_link_collision'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <box size=".05 .05 .05"/>
       </geometry>
     </collision>
 
-    <visual name='camera_visual'>
+    <visual name='camera_link_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
         <box size=".05 .05 .05"/>
@@ -206,11 +206,20 @@
     </visual>
   </link>
 
-  <joint type="fixed" name="camera_joint">
+  <joint type="fixed" name="camera_link_joint">
     <origin xyz="0.2 0 0" rpy="0 0 0"/>
-    <child link="camera"/>
+    <child link="camera_link"/>
     <parent link="chassis"/>
   </joint>
+
+  <joint name="camera_joint" type="fixed">
+   <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+   <parent link="camera_link"/>
+   <child link="camera_rgbd_frame"/>
+  </joint>
+  
+  <link name="camera_rgbd_frame"/>
+  
 
   <link name='hokuyo'>
 
@@ -234,7 +243,7 @@
     <visual name='hokuyo_visual'>
       <origin xyz="0 0 0" rpy=" 0 0 0"/>
       <geometry>
-        <mesh filename="package://udacity_bot/meshes/hokuyo.dae"/>
+        <mesh filename="package://slam_project/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
   </link>
